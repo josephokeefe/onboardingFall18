@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import uuid from 'uuid'
+import { styles, StyledButton, StyledInput } from "../../styles"
 
 
 class Form extends Component {
@@ -12,26 +14,28 @@ class Form extends Component {
   }
 
   changeHandler = async (event) => {
-    await this.setState({ [event.target.name]: event.target.value })
-    console.log(this.state)
+    await this.setState({ todo: event.target.value })
   } 
 
   addHandler = (event) => {
-    this.setState({ submit: !this.state.submit })
     event.preventDefault();
+
+    const newTodo = {
+        id: uuid(),
+        name: this.state.todo + " "
+    }
+
+    this.props.addTodo(newTodo)
   }
 
   render() {
     return (
       <React.Fragment>
-        <br/>
         <div>
-          <label>Todo</label>
-          <br/>
-          <input name="todo" type="text" value={ this.state.todo } onChange={ this.changeHandler }></input>
+          <label style={ styles }>Add Todo</label>
+          <StyledInput name="todo" type="text" value={ this.state.todo } onChange={ this.changeHandler }></StyledInput>
+          <StyledButton type="submit" onClick={ this.addHandler }>Add</StyledButton>
         </div>
-        <button type="submit" onClick={ this.props.addTodo(this.todo) }>Add</button>
-        
       </React.Fragment>
     );
   }

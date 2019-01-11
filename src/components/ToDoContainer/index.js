@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import Add from "./components/Add"
+import Search from "./components/Search"
+import { styles, StyledTodo, StyledGrid, StyledDiv, StyledButton } from "./styles"
+import { Grid } from 'react-flexbox-grid';
 
 class ToDoContainer extends Component {
 
@@ -7,64 +10,78 @@ class ToDoContainer extends Component {
     super()
 
     this.state = ({
-      todos: [
-        {
-          id: 1,
-          name: "todo1"
-        },
-        {
-          id: 2,
-          name: "todo2"
-        },
-        {
-          id: 3,
-          name: "todo3"
-        }
-      ],
-      addTodo: "",
+      todos: [],
+      displayTodos: [],
     })
+
+    const styles = {
+      color: 'red'
+    }
+
   }
 
   deleteButtonPressed = id => {
     this.setState({
-      todos: this.state.todos.filter((j) => id !== j.id)
+      todos: this.state.todos.filter((j) => id !== j.id),
+      displayTodos: this.state.todos.filter((j) => id !== j.id),
     });
-    console.log(this.todos)
   };
 
   addTodo = (todo) => {
 
-    const newTodo = {
-      id: 10,
-      name: todo
-    }
-
-    const list = this.state.todos.push(todo);
+    const list = [...this.state.todos, todo];
 
     this.setState({
-      todos: list
+      todos: list,
+      displayTodos: list
     })
 
   };
+
+  searchHandler = (newDisplayList) => {
+
+    this.setState({
+      displayTodos: newDisplayList
+    })
+
+  }
 
 
   render() {
     return (
       <React.Fragment>
-        <ul>
-          {this.state.todos.map((todo) => (
-            <li>
-              { todo.name }
-              <button
-                type="button"
-                onClick={() => this.deleteButtonPressed(todo.id)}
-              >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
-        <Add addTodo = { this.addToDo } changeHandler= { this.changeHandler } addInput = { this.state.addTodo } />
+
+
+        <Grid fluid style={ StyledGrid }>
+        
+
+          <StyledDiv>
+            <Add addTodo = { this.addTodo }/>
+          </StyledDiv>
+
+          <StyledDiv>
+            <h3 style={ styles }>Your Todos:</h3>
+            <ol>
+              {this.state.displayTodos.map(({id, name}) => (
+                <li style={ StyledTodo }>
+                  { name }
+                  <StyledButton
+                    type="button"
+                    onClick={() => this.deleteButtonPressed(id)}
+                  >
+                    Delete
+                  </StyledButton>
+                </li>
+              ))}
+            </ol>
+          </StyledDiv>
+
+          <StyledDiv>
+          <Search searchHandler = { this.searchHandler } todos = { this.state.todos }/>
+          </StyledDiv>
+            
+        </Grid>
+
       </React.Fragment>
     );
   }
