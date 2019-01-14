@@ -15,12 +15,27 @@ const StyledGrid = {
     flexWrap: "wrap",
 }
 
-const StyledDiv = styled.div`
+const AddTodoBlock = styled.div`
     display: flex;
     flex: .33;
     flex-direction: column;
     margin: 1rem;
 `
+
+const CurrentTodosBlock = styled.div`
+    display: flex;
+    flex: .33;
+    flex-direction: column;
+    margin: 1rem;
+`
+
+const SearchBlock = styled.div`
+    display: flex;
+    flex: .33;
+    flex-direction: column;
+    margin: 1rem;
+`
+
 
 const StyledButton = styled.button`
   display: inline-block;
@@ -43,4 +58,4 @@ const StyledInput = styled.input`
 `;
 
 
-export { styles, StyledTodo, StyledGrid, StyledDiv, StyledButton, StyledInput }
+export { styles, StyledTodo, StyledGrid, AddTodoBlock, StyledButton, StyledInput, CurrentTodosBlock, SearchBlock }

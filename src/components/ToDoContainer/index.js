@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Add from "./components/Add"
 import Search from "./components/Search"
-import { styles, StyledTodo, StyledGrid, StyledDiv, StyledButton } from "./styles"
+import { styles, StyledTodo, StyledGrid, AddTodoBlock, StyledButton, CurrentTodosBlock, SearchBlock } from "./styles"
 import { Grid } from 'react-flexbox-grid';
 
 class ToDoContainer extends Component {
@@ -55,11 +55,11 @@ class ToDoContainer extends Component {
         <Grid fluid style={ StyledGrid }>
         
 
-          <StyledDiv>
+          <AddTodoBlock>
             <Add addTodo = { this.addTodo }/>
-          </StyledDiv>
+          </AddTodoBlock>
 
-          <StyledDiv>
+          <CurrentTodosBlock>
             <h3 style={ styles }>Your Todos:</h3>
             <ol>
               {this.state.displayTodos.map(({id, name}) => (
@@ -74,11 +74,11 @@ class ToDoContainer extends Component {
                 </li>
               ))}
             </ol>
-          </StyledDiv>
+          </CurrentTodosBlock>
 
-          <StyledDiv>
-          <Search searchHandler = { this.searchHandler } todos = { this.state.todos }/>
-          </StyledDiv>
+          <SearchBlock>
+            <Search searchHandler = { this.searchHandler } todos = { this.state.todos }/>
+          </SearchBlock>
             
         </Grid>
 
